@@ -5,6 +5,42 @@ export class PermissionError extends Error {
     }
 }
 
+// Clase Allow - Sistema de registro de permisos (core)
+export class Allow {
+    // Registro de permisos con funciones y descripciones
+    static permissions = new Map<string, { func: any, description: string }>()
+
+    // Método para registrar un permiso
+    static registerPermission(name: string, func: any, description: string): void {
+        this.permissions.set(name, {
+            func: func,
+            description: description
+        })
+        // Crear el método estático para acceso directo
+        ;(this as any)[name] = func
+    }
+
+    // Obtener la descripción de un permiso
+    static getPermissionDescription(permissionName: string): string {
+        const permission = this.permissions.get(permissionName)
+        return permission ? permission.description : permissionName
+    }
+
+    // Obtener todos los permisos registrados
+    static getAllPermissions(): Array<{ name: string, description: string, func: any }> {
+        return Array.from(this.permissions.entries()).map(([name, data]) => ({
+            name,
+            description: data.description,
+            func: data.func
+        }))
+    }
+
+    // Verificar si un permiso existe
+    static hasPermission(permissionName: string): boolean {
+        return this.permissions.has(permissionName)
+    }
+}
+
 export function usePermissions(props: any, permissions: string[]) {
     const allow: Record<string, () => any> = {}
 
