@@ -2,15 +2,15 @@
 import { Allow } from './plugini'
 
 // Registrar permisos básicos del sistema
-Allow.registerPermission(
-    'GetName', 
-    () => "World",
-    'Obtener nombre de usuario'
-)
+Allow.registerPermission({
+    name: 'GetName',
+    func: () => "World",
+    description: 'Obtener nombre de usuario'
+})
 
-Allow.registerPermission(
-    'GetCurrentTime',
-    () => {
+Allow.registerPermission({
+    name: 'GetCurrentTime',
+    func: () => {
         const now = new Date()
         return now.toLocaleString('es-ES', {
             weekday: 'long',
@@ -22,12 +22,12 @@ Allow.registerPermission(
             second: '2-digit'
         })
     },
-    'Acceder a fecha y hora actual'
-)
+    description: 'Acceder a fecha y hora actual'
+})
 
-Allow.registerPermission(
-    'GetCurrentDate',
-    () => {
+Allow.registerPermission({
+    name: 'GetCurrentDate',
+    func: () => {
         const now = new Date()
         return now.toLocaleDateString('es-ES', {
             weekday: 'long',
@@ -36,24 +36,24 @@ Allow.registerPermission(
             day: 'numeric'
         })
     },
-    'Acceder a fecha actual'
-)
+    description: 'Acceder a fecha actual'
+})
 
-Allow.registerPermission(
-    'GetUserName',
-    (name = "Usuario") => () => name,
-    'Obtener nombre personalizado del usuario'
-)
+Allow.registerPermission({
+    name: 'GetUserName',
+    func: (name = "Usuario") => () => name,
+    description: 'Obtener nombre personalizado del usuario'
+})
 
-Allow.registerPermission(
-    'GetUserInfo',
-    (userInfo = {}) => () => userInfo,
-    'Acceder a información del usuario'
-)
+Allow.registerPermission({
+    name: 'GetUserInfo',
+    func: (userInfo = {}) => () => userInfo,
+    description: 'Acceder a información del usuario'
+})
 
-Allow.registerPermission(
-    'GetSystemInfo',
-    () => {
+Allow.registerPermission({
+    name: 'GetSystemInfo',
+    func: () => {
         return {
             platform: navigator.platform,
             userAgent: navigator.userAgent,
@@ -61,38 +61,38 @@ Allow.registerPermission(
             timestamp: Date.now()
         }
     },
-    'Acceder a información del sistema'
-)
+    description: 'Acceder a información del sistema'
+})
 
-Allow.registerPermission(
-    'GetLocation',
-    () => {
+Allow.registerPermission({
+    name: 'GetLocation',
+    func: () => {
         return {
             city: "Santiago",
             country: "Chile",
             timezone: "America/Santiago"
         }
     },
-    'Acceder a ubicación geográfica'
-)
+    description: 'Acceder a ubicación geográfica'
+})
 
-Allow.registerPermission(
-    'GetWelcomeMessage',
-    () => "¡Bienvenido al sistema de plugins!",
-    'Obtener mensaje de bienvenida'
-)
+Allow.registerPermission({
+    name: 'GetWelcomeMessage',
+    func: () => "¡Bienvenido al sistema de plugins!",
+    description: 'Obtener mensaje de bienvenida'
+})
 
-Allow.registerPermission(
-    'GetRandomNumber',
-    () => Math.floor(Math.random() * 100),
-    'Generar número aleatorio'
-)
+Allow.registerPermission({
+    name: 'GetRandomNumber',
+    func: () => Math.floor(Math.random() * 100),
+    description: 'Generar número aleatorio'
+})
 
-Allow.registerPermission(
-    'GetAppVersion',
-    () => "1.0.0",
-    'Obtener versión de la aplicación'
-)
+Allow.registerPermission({
+    name: 'GetAppVersion',
+    func: () => "1.0.0",
+    description: 'Obtener versión de la aplicación'
+})
 
 // Exportar la clase Allow configurada con todos los permisos
 export { Allow }

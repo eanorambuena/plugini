@@ -10,8 +10,12 @@ export class Allow {
     // Registro de permisos con funciones y descripciones
     static permissions = new Map<string, { func: any, description: string }>()
 
-    // Método para registrar un permiso
-    static registerPermission(name: string, func: any, description: string): void {
+    // Método para registrar un permiso con argumentos nombrados
+    static registerPermission({ name, func, description }: {
+        name: string,
+        func: any,
+        description: string
+    }): void {
         this.permissions.set(name, {
             func: func,
             description: description
