@@ -3,12 +3,20 @@ import { Microkernel } from './plugini'
 import { Allow } from './permissions'
 import * as helloWorldPlugin from './examples/helloWorld'
 import * as timePlugin from './examples/timePlugin'
+import * as calculatorPlugin from './examples/calculatorPlugin'
+import * as weatherPlugin from './examples/weatherPlugin'
+import * as todoPlugin from './examples/todoPlugin'
+import * as counterPlugin from './examples/counterPlugin'
 
 const microkernel = new Microkernel()
 
 // Registrar plugins disponibles
 microkernel.registerPlugin('helloWorld', helloWorldPlugin)
 microkernel.registerPlugin('timePlugin', timePlugin)
+microkernel.registerPlugin('calculatorPlugin', calculatorPlugin)
+microkernel.registerPlugin('weatherPlugin', weatherPlugin)
+microkernel.registerPlugin('todoPlugin', todoPlugin)
+microkernel.registerPlugin('counterPlugin', counterPlugin)
 
 export const App = () => {
   const [enabledPlugins, setEnabledPlugins] = useState([])
@@ -32,6 +40,34 @@ export const App = () => {
     } else if (pluginName === 'timePlugin') {
       if (activePermissions.has('GetCurrentTime')) {
         pluginProps = { GetCurrentTime: (Allow as any).GetCurrentTime }
+      }
+    } else if (pluginName === 'calculatorPlugin') {
+      if (activePermissions.has('GetRandomNumber')) {
+        pluginProps.GetRandomNumber = (Allow as any).GetRandomNumber
+      }
+      if (activePermissions.has('GetSystemInfo')) {
+        pluginProps.GetSystemInfo = (Allow as any).GetSystemInfo
+      }
+    } else if (pluginName === 'weatherPlugin') {
+      if (activePermissions.has('GetLocation')) {
+        pluginProps.GetLocation = (Allow as any).GetLocation
+      }
+      if (activePermissions.has('GetCurrentTime')) {
+        pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
+      }
+    } else if (pluginName === 'todoPlugin') {
+      if (activePermissions.has('GetCurrentTime')) {
+        pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
+      }
+      if (activePermissions.has('GetUserName')) {
+        pluginProps.GetUserName = (Allow as any).GetUserName
+      }
+    } else if (pluginName === 'counterPlugin') {
+      if (activePermissions.has('GetCurrentTime')) {
+        pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
+      }
+      if (activePermissions.has('GetRandomNumber')) {
+        pluginProps.GetRandomNumber = (Allow as any).GetRandomNumber
       }
     }
     
@@ -70,6 +106,34 @@ export const App = () => {
         } else if (name === 'timePlugin') {
           if (newActivePermissions.has('GetCurrentTime')) {
             pluginProps = { GetCurrentTime: (Allow as any).GetCurrentTime }
+          }
+        } else if (name === 'calculatorPlugin') {
+          if (newActivePermissions.has('GetRandomNumber')) {
+            pluginProps.GetRandomNumber = (Allow as any).GetRandomNumber
+          }
+          if (newActivePermissions.has('GetSystemInfo')) {
+            pluginProps.GetSystemInfo = (Allow as any).GetSystemInfo
+          }
+        } else if (name === 'weatherPlugin') {
+          if (newActivePermissions.has('GetLocation')) {
+            pluginProps.GetLocation = (Allow as any).GetLocation
+          }
+          if (newActivePermissions.has('GetCurrentTime')) {
+            pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
+          }
+        } else if (name === 'todoPlugin') {
+          if (newActivePermissions.has('GetCurrentTime')) {
+            pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
+          }
+          if (newActivePermissions.has('GetUserName')) {
+            pluginProps.GetUserName = (Allow as any).GetUserName
+          }
+        } else if (name === 'counterPlugin') {
+          if (newActivePermissions.has('GetCurrentTime')) {
+            pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
+          }
+          if (newActivePermissions.has('GetRandomNumber')) {
+            pluginProps.GetRandomNumber = (Allow as any).GetRandomNumber
           }
         }
         

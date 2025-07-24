@@ -4,7 +4,7 @@ import { Allow } from './plugini'
 // Registrar permisos básicos del sistema
 Allow.registerPermission({
     name: 'GetName',
-    func: () => "World",
+    func: () => 'World',
     description: 'Obtener nombre de usuario'
 })
 
@@ -41,13 +41,13 @@ Allow.registerPermission({
 
 Allow.registerPermission({
     name: 'GetUserName',
-    func: (name = "Usuario") => () => name,
+    func: () => 'Usuario',
     description: 'Obtener nombre personalizado del usuario'
 })
 
 Allow.registerPermission({
     name: 'GetUserInfo',
-    func: (userInfo = {}) => () => userInfo,
+    func: () => ({ name: 'Usuario', role: 'Administrador' }),
     description: 'Acceder a información del usuario'
 })
 
@@ -68,9 +68,9 @@ Allow.registerPermission({
     name: 'GetLocation',
     func: () => {
         return {
-            city: "Santiago",
-            country: "Chile",
-            timezone: "America/Santiago"
+            city: 'Santiago',
+            country: 'Chile',
+            timezone: 'America/Santiago'
         }
     },
     description: 'Acceder a ubicación geográfica'
@@ -78,7 +78,7 @@ Allow.registerPermission({
 
 Allow.registerPermission({
     name: 'GetWelcomeMessage',
-    func: () => "¡Bienvenido al sistema de plugins!",
+    func: () => '¡Bienvenido al sistema de plugins!',
     description: 'Obtener mensaje de bienvenida'
 })
 
@@ -90,7 +90,7 @@ Allow.registerPermission({
 
 Allow.registerPermission({
     name: 'GetAppVersion',
-    func: () => "1.0.0",
+    func: () => '1.0.0',
     description: 'Obtener versión de la aplicación'
 })
 
