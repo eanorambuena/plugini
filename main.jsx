@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Microkernel } from './plugini'
+import { Allow } from './allow'
 import * as helloWorldPlugin from './examples/helloWorld'
 import * as timePlugin from './examples/timePlugin'
 
@@ -16,24 +17,11 @@ const App = () => {
   const handleEnablePlugin = (pluginName) => {
     let pluginProps = {}
     
-    // Configurar props específicos para cada plugin
+    // Configurar props específicos para cada plugin usando Allow
     if (pluginName === 'helloWorld') {
-      pluginProps = { GetName: () => "World" }
+      pluginProps = { GetName: Allow.GetName }
     } else if (pluginName === 'timePlugin') {
-      pluginProps = { 
-        GetCurrentTime: () => {
-          const now = new Date()
-          return now.toLocaleString('es-ES', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-          })
-        }
-      }
+      pluginProps = { GetCurrentTime: Allow.GetCurrentTime }
     }
     
     const success = microkernel.enablePlugin(pluginName, pluginProps)
