@@ -28,49 +28,24 @@ export const App = () => {
     setActivePermissions(new Set(allPermissions))
   }, [])
 
+  const buildPluginProps = (pluginName: string, permissions: Set<string>) => {
+    const pluginConfig = microkernel.getPluginConfig(pluginName)
+    if (!pluginConfig) return {}
+    
+    const pluginProps: any = {}
+    
+    // Automáticamente configurar props basándose en los permisos del plugin
+    pluginConfig.permissions.forEach((permissionName: string) => {
+      if (permissions.has(permissionName) && (Allow as any)[permissionName]) {
+        pluginProps[permissionName] = (Allow as any)[permissionName]
+      }
+    })
+    
+    return pluginProps
+  }
+
   const handleEnablePlugin = (pluginName: string) => {
-    let pluginProps: any = {}
-    
-    // Configurar props específicos para cada plugin usando Allow
-    // Solo incluir permisos que estén activos
-    if (pluginName === 'helloWorld') {
-      if (activePermissions.has('GetName')) {
-        pluginProps = { GetName: (Allow as any).GetName }
-      }
-    } else if (pluginName === 'timePlugin') {
-      if (activePermissions.has('GetCurrentTime')) {
-        pluginProps = { GetCurrentTime: (Allow as any).GetCurrentTime }
-      }
-    } else if (pluginName === 'calculatorPlugin') {
-      if (activePermissions.has('GetRandomNumber')) {
-        pluginProps.GetRandomNumber = (Allow as any).GetRandomNumber
-      }
-      if (activePermissions.has('GetSystemInfo')) {
-        pluginProps.GetSystemInfo = (Allow as any).GetSystemInfo
-      }
-    } else if (pluginName === 'weatherPlugin') {
-      if (activePermissions.has('GetLocation')) {
-        pluginProps.GetLocation = (Allow as any).GetLocation
-      }
-      if (activePermissions.has('GetCurrentTime')) {
-        pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
-      }
-    } else if (pluginName === 'todoPlugin') {
-      if (activePermissions.has('GetCurrentTime')) {
-        pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
-      }
-      if (activePermissions.has('GetUserName')) {
-        pluginProps.GetUserName = (Allow as any).GetUserName
-      }
-    } else if (pluginName === 'counterPlugin') {
-      if (activePermissions.has('GetCurrentTime')) {
-        pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
-      }
-      if (activePermissions.has('GetRandomNumber')) {
-        pluginProps.GetRandomNumber = (Allow as any).GetRandomNumber
-      }
-    }
-    
+    const pluginProps = buildPluginProps(pluginName, activePermissions)
     const success = microkernel.enablePlugin(pluginName, pluginProps)
     if (success) {
       setEnabledPlugins(microkernel.getEnabledPlugins())
@@ -95,48 +70,7 @@ export const App = () => {
       
       // Re-habilitar con los nuevos permisos después de un pequeño delay
       setTimeout(() => {
-        let pluginProps: any = {}
-        
-        // Configurar props específicos para cada plugin usando Allow
-        // Solo incluir permisos que estén activos
-        if (name === 'helloWorld') {
-          if (newActivePermissions.has('GetName')) {
-            pluginProps = { GetName: (Allow as any).GetName }
-          }
-        } else if (name === 'timePlugin') {
-          if (newActivePermissions.has('GetCurrentTime')) {
-            pluginProps = { GetCurrentTime: (Allow as any).GetCurrentTime }
-          }
-        } else if (name === 'calculatorPlugin') {
-          if (newActivePermissions.has('GetRandomNumber')) {
-            pluginProps.GetRandomNumber = (Allow as any).GetRandomNumber
-          }
-          if (newActivePermissions.has('GetSystemInfo')) {
-            pluginProps.GetSystemInfo = (Allow as any).GetSystemInfo
-          }
-        } else if (name === 'weatherPlugin') {
-          if (newActivePermissions.has('GetLocation')) {
-            pluginProps.GetLocation = (Allow as any).GetLocation
-          }
-          if (newActivePermissions.has('GetCurrentTime')) {
-            pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
-          }
-        } else if (name === 'todoPlugin') {
-          if (newActivePermissions.has('GetCurrentTime')) {
-            pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
-          }
-          if (newActivePermissions.has('GetUserName')) {
-            pluginProps.GetUserName = (Allow as any).GetUserName
-          }
-        } else if (name === 'counterPlugin') {
-          if (newActivePermissions.has('GetCurrentTime')) {
-            pluginProps.GetCurrentTime = (Allow as any).GetCurrentTime
-          }
-          if (newActivePermissions.has('GetRandomNumber')) {
-            pluginProps.GetRandomNumber = (Allow as any).GetRandomNumber
-          }
-        }
-        
+        const pluginProps = buildPluginProps(name, newActivePermissions)
         microkernel.enablePlugin(name, pluginProps)
         // Actualizar el estado para forzar re-render
         setEnabledPlugins(microkernel.getEnabledPlugins())
