@@ -1,74 +1,43 @@
 import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import * as helloWorldPlugin from './helloWorld'
-
-// Microkernel - Gestiona todos los plugins del sistema
-class Microkernel {
-  constructor() {
-    this.plugins = new Map()
-    this.services = new Map()
-  }
-
-  // Registra un plugin en el sistema
-  registerPlugin(name, plugin) {
-    this.plugins.set(name, {
-      ...plugin,
-      enabled: false,
-      instance: null
-    })
-    console.log(`Plugin "${name}" registrado en el microkernel`)
-  }
-
-  // Habilita un plugin específico
-  enablePlugin(name, props = {}) {
-    const plugin = this.plugins.get(name)
-    if (plugin) {
-      plugin.enabled = true
-      plugin.props = props
-      console.log(`Plugin "${name}" habilitado`)
-      return true
-    }
-    console.warn(`Plugin "${name}" no encontrado`)
-    return false
-  }
-
-  // Deshabilita un plugin específico
-  disablePlugin(name) {
-    const plugin = this.plugins.get(name)
-    if (plugin) {
-      plugin.enabled = false
-      plugin.props = null
-      console.log(`Plugin "${name}" deshabilitado`)
-      return true
-    }
-    return false
-  }
-
-  // Obtiene todos los plugins habilitados
-  getEnabledPlugins() {
-    return Array.from(this.plugins.entries())
-      .filter(([name, plugin]) => plugin.enabled)
-      .map(([name, plugin]) => ({ name, ...plugin }))
-  }
-
-  // Obtiene todos los plugins disponibles
-  getAllPlugins() {
-    return Array.from(this.plugins.entries())
-      .map(([name, plugin]) => ({ name, ...plugin }))
-  }
-}
+import { Microkernel } from './plugini'
+import * as helloWorldPlugin from './examples/helloWorld'
+import * as timePlugin from './examples/timePlugin'
 
 // Instancia global del microkernel
 const microkernel = new Microkernel()
 
 // Registrar plugins disponibles
 microkernel.registerPlugin('helloWorld', helloWorldPlugin)
+microkernel.registerPlugin('timePlugin', timePlugin)
 
 const App = () => {
   const [enabledPlugins, setEnabledPlugins] = useState([])
 
   const handleEnablePlugin = (pluginName) => {
-    const success = microkernel.enablePlugin(pluginName, { GetName: () => "World" })
+    let pluginProps = {}
+    
+    // Configurar props específicos para cada plugin
+    if (pluginName === 'helloWorld') {
+      pluginProps = { GetName: () => "World" }
+    } else if (pluginName === 'timePlugin') {
+      pluginProps = { 
+        GetCurrentTime: () => {
+          const now = new Date()
+          return now.toLocaleString('es-ES', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+          })
+        }
+      }
+    }
+    
+    const success = microkernel.enablePlugin(pluginName, pluginProps)
     if (success) {
       setEnabledPlugins(microkernel.getEnabledPlugins())
     }
