@@ -1,12 +1,31 @@
 {
   "name": "plugini",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "description": "Sistema de microkernel extensible para plugins con gestión de permisos integrada",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
+    "build": "tsc && tsc -p tsconfig.esm.json",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "microkernel",
+    "plugin",
+    "system",
+    "permissions",
+    "react",
+    "hooks",
+    "modular",
+    "extensible"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eanorambuena/plugini.git"
@@ -17,8 +36,15 @@
     "url": "https://github.com/eanorambuena/plugini/issues"
   },
   "homepage": "https://github.com/eanorambuena/plugini#readme",
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.23",
+    "typescript": "^5.8.3"
+  },
   "dependencies": {
-    "react": "^19.1.0",
+    "react": ">=17.0.0",
     "react-dom": "^19.1.0",
     "vite": "^7.0.6"
   }
