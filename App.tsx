@@ -12,7 +12,7 @@ microkernel.registerPlugin('timePlugin', timePlugin)
 
 export const App = () => {
   const [enabledPlugins, setEnabledPlugins] = useState([])
-  const [activePermissions, setActivePermissions] = useState(new Set())
+  const [activePermissions, setActivePermissions] = useState(new Set<string>())
 
   // Inicializar todos los permisos como activos por defecto
   React.useEffect(() => {
@@ -20,18 +20,18 @@ export const App = () => {
     setActivePermissions(new Set(allPermissions))
   }, [])
 
-  const handleEnablePlugin = (pluginName) => {
-    let pluginProps = {}
+  const handleEnablePlugin = (pluginName: string) => {
+    let pluginProps: any = {}
     
     // Configurar props específicos para cada plugin usando Allow
     // Solo incluir permisos que estén activos
     if (pluginName === 'helloWorld') {
       if (activePermissions.has('GetName')) {
-        pluginProps = { GetName: Allow.GetName }
+        pluginProps = { GetName: (Allow as any).GetName }
       }
     } else if (pluginName === 'timePlugin') {
       if (activePermissions.has('GetCurrentTime')) {
-        pluginProps = { GetCurrentTime: Allow.GetCurrentTime }
+        pluginProps = { GetCurrentTime: (Allow as any).GetCurrentTime }
       }
     }
     
@@ -59,17 +59,17 @@ export const App = () => {
       
       // Re-habilitar con los nuevos permisos después de un pequeño delay
       setTimeout(() => {
-        let pluginProps = {}
+        let pluginProps: any = {}
         
         // Configurar props específicos para cada plugin usando Allow
         // Solo incluir permisos que estén activos
         if (name === 'helloWorld') {
           if (newActivePermissions.has('GetName')) {
-            pluginProps = { GetName: Allow.GetName }
+            pluginProps = { GetName: (Allow as any).GetName }
           }
         } else if (name === 'timePlugin') {
           if (newActivePermissions.has('GetCurrentTime')) {
-            pluginProps = { GetCurrentTime: Allow.GetCurrentTime }
+            pluginProps = { GetCurrentTime: (Allow as any).GetCurrentTime }
           }
         }
         
@@ -81,17 +81,17 @@ export const App = () => {
   }
 
   // Función para obtener los permisos que usa cada plugin
-  const getPluginPermissions = (pluginName) => {
+  const getPluginPermissions = (pluginName: string) => {
     const plugin = microkernel.getPluginConfig(pluginName)
     return plugin?.permissions || []
   }
 
   // Función para obtener descripción legible de cada permiso
-  const getPermissionDescription = (permission) => {
+  const getPermissionDescription = (permission: string) => {
     return Allow.getPermissionDescription(permission)
   }
 
-  const handleDisablePlugin = (pluginName) => {
+  const handleDisablePlugin = (pluginName: string) => {
     const success = microkernel.disablePlugin(pluginName)
     if (success) {
       setEnabledPlugins(microkernel.getEnabledPlugins())
