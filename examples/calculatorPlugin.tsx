@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { usePermissions, PermissionError } from '../plugini'
 
+export const id = 'calculatorPlugin'
 export const permissions = ['GetRandomNumber', 'GetSystemInfo']
 
 export const component = (props: any) => {

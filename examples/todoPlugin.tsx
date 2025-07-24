@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { usePermissions, PermissionError } from '../plugini'
 
+export const id = 'todoPlugin'
 export const permissions = ['GetCurrentTime', 'GetUserName']
 
 interface Task {

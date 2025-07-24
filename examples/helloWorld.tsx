@@ -1,6 +1,7 @@
 import React from 'react'
 import { usePermissions, PermissionError } from '../plugini'
 
+export const id = 'helloWorld'
 export const permissions = ['GetName']
 
 export const component = (props) => {

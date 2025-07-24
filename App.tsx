@@ -10,13 +10,18 @@ import * as counterPlugin from './examples/counterPlugin'
 
 const microkernel = new Microkernel()
 
-// Registrar plugins disponibles
-microkernel.registerPlugin('helloWorld', helloWorldPlugin)
-microkernel.registerPlugin('timePlugin', timePlugin)
-microkernel.registerPlugin('calculatorPlugin', calculatorPlugin)
-microkernel.registerPlugin('weatherPlugin', weatherPlugin)
-microkernel.registerPlugin('todoPlugin', todoPlugin)
-microkernel.registerPlugin('counterPlugin', counterPlugin)
+// Registrar todos los plugins de una vez
+microkernel.registerPlugins([
+  helloWorldPlugin,
+  timePlugin,
+  calculatorPlugin,
+  weatherPlugin,
+  todoPlugin,
+  counterPlugin
+])
+
+// Debug: mostrar plugins registrados
+console.log('Plugins registrados:', microkernel.getAllPlugins().map(p => p.name))
 
 export const App = () => {
   const [enabledPlugins, setEnabledPlugins] = useState([])
@@ -70,7 +75,7 @@ export const App = () => {
       
       // Re-habilitar con los nuevos permisos después de un pequeño delay
       setTimeout(() => {
-        const pluginProps = buildPluginProps(name, newActivePermissions)
+        const pluginProps = buildPluginProps(name, newActivePermissions as Set<string>)
         microkernel.enablePlugin(name, pluginProps)
         // Actualizar el estado para forzar re-render
         setEnabledPlugins(microkernel.getEnabledPlugins())
@@ -82,11 +87,6 @@ export const App = () => {
   const getPluginPermissions = (pluginName: string) => {
     const plugin = microkernel.getPluginConfig(pluginName)
     return plugin?.permissions || []
-  }
-
-  // Función para obtener descripción legible de cada permiso
-  const getPermissionDescription = (permission: string) => {
-    return Allow.getPermissionDescription(permission)
   }
 
   const handleDisablePlugin = (pluginName: string) => {
@@ -210,7 +210,7 @@ export const App = () => {
                         fontSize: '12px',
                         border: `1px solid ${isPermissionActive ? '#c3e6cb' : '#f5c6cb'}`
                       }}>
-                        {isPermissionActive ? '✅' : '❌'} {getPermissionDescription(permission)}
+                        {isPermissionActive ? '✅' : '❌'} {Allow.getPermissionDescription(permission)}
                       </div>
                     )
                   })

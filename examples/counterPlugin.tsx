@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { usePermissions, PermissionError } from '../plugini'
 
+export const id = 'counterPlugin'
 export const permissions = ['GetCurrentTime', 'GetRandomNumber']
 
 export const component = (props: any) => {

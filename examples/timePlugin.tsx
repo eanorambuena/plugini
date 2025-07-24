@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { usePermissions, PermissionError } from '../plugini'
 
+export const id = 'timePlugin'
 export const permissions = ['GetCurrentTime']
 
 export const component = (props) => {

@@ -94,6 +94,18 @@ export class Microkernel {
         console.log(`Plugin "${name}" registrado en el microkernel`)
     }
 
+    // Registra múltiples plugins automáticamente usando sus IDs exportados
+    registerPlugins(plugins: any[]): void {
+        plugins.forEach((plugin, index) => {
+            // Usar el ID exportado del plugin, o generar uno por defecto
+            const pluginId = plugin.id || `plugin_${index}`
+            
+            console.log(`Registrando plugin con ID: "${pluginId}"`)
+            this.registerPlugin(pluginId, plugin)
+        })
+        console.log(`Registrados ${plugins.length} plugins automáticamente`)
+    }
+
     // Habilita un plugin específico
     enablePlugin(name: string, props: any = {}): boolean {
         const plugin = this.plugins.get(name)
