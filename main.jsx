@@ -4,7 +4,6 @@ import { Microkernel } from './plugini'
 import * as helloWorldPlugin from './examples/helloWorld'
 import * as timePlugin from './examples/timePlugin'
 
-// Instancia global del microkernel
 const microkernel = new Microkernel()
 
 // Registrar plugins disponibles
