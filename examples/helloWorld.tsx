@@ -1,5 +1,5 @@
 import React from 'react'
-import { usePermissions, PermissionError } from '../plugini'
+import { usePermissions, PermissionError } from '../src'
 
 export const id = 'helloWorld'
 export const permissions = ['GetName']

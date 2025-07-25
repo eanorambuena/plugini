@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { usePermissions, PermissionError } from '../plugini'
+import { usePermissions, PermissionError } from '../src'
 
 export const id = 'todoPlugin'
 export const permissions = ['GetCurrentTime', 'GetUserName']
@@ -14,7 +14,7 @@ interface Task {
 
 export const component = (props: any) => {
     const allow = usePermissions(props, permissions)
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState<Task[]>([])
     const [newTask, setNewTask] = useState('')
     const [priority, setPriority] = useState('medium')
     const [filter, setFilter] = useState('all')
@@ -23,12 +23,12 @@ export const component = (props: any) => {
         if (newTask.trim()) {
             try {
                 const currentTime = allow.GetCurrentTime()
-                const task = {
+                const task: Task = {
                     id: Date.now(),
                     text: newTask,
                     completed: false,
                     createdAt: currentTime,
-                    priority: priority
+                    priority: priority as 'low' | 'medium' | 'high' // Asegurar el tipo correcto
                 }
                 setTasks([...tasks, task])
                 setNewTask('')

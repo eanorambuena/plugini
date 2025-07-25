@@ -6,7 +6,7 @@ export interface Plugin {
     component: any;
 }
 export interface PluginInstance {
-    component: any;
+    Component: any;
     permissions: string[];
     enabled: boolean;
     instance: any;

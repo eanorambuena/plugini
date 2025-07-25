@@ -67,7 +67,7 @@ export function usePermissions(props: any, permissions: string[]) {
 
 // Interfaces para tipado
 export interface PluginInstance {
-    component: any
+    Component: any // Cambiado a mayúscula
     permissions: string[]
     enabled: boolean
     instance: any

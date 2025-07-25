@@ -1,4 +1,4 @@
-import { Microkernel } from '../plugini'
+import { Microkernel } from '../src'
 import * as helloWorldPlugin from '../examples/helloWorld'
 import * as timePlugin from '../examples/timePlugin'
 import * as calculatorPlugin from '../examples/calculatorPlugin'

@@ -31,7 +31,7 @@ import { usePermissions, PermissionError } from 'plugini'
 export const id = 'myPlugin'
 export const permissions = ['GetUserData']
 
-export const component = (props) => {
+export const Component = (props) => {
   const allow = usePermissions(props, permissions)
   
   try {
@@ -100,7 +100,7 @@ export const App = () => {
       ))}
 
       {/* Plugins activos */}
-      {enabledPlugins.map(({ name, component: Component, props }) => (
+      {enabledPlugins.map(({ name, Component, props }) => (
         <div key={name}>
           <h3>Plugin: {name}</h3>
           <Component {...props} />
@@ -170,7 +170,7 @@ const {
 // Tu plugin debe exportar:
 export const id = 'uniquePluginId'           // ID único
 export const permissions = ['Permission1']   // Permisos requeridos
-export const component = (props) => { ... }  // Componente React
+export const Component = (props) => { ... }  // Componente React
 ```
 
 ## 🤝 Contribuir

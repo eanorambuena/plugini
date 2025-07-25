@@ -1,6 +1,6 @@
 {
   "name": "plugini",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Sistema de microkernel extensible para plugins con gestión de permisos integrada",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -9,7 +9,11 @@
   "scripts": {
     "build": "tsc && tsc -p tsconfig.esm.json",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "major": "node version-bump.js major",
+    "minor": "node version-bump.js minor",
+    "patch": "node version-bump.js patch"
   },
   "files": [
     "dist",

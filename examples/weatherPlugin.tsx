@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { usePermissions, PermissionError } from '../plugini'
+import { usePermissions, PermissionError } from '../src'
 
 export const id = 'weatherPlugin'
 export const permissions = ['GetLocation', 'GetCurrentTime']

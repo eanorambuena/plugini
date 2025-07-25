@@ -21,7 +21,7 @@ export declare class Allow {
 }
 export declare function usePermissions(props: any, permissions: string[]): Record<string, () => any>;
 export interface PluginInstance {
-    component: any;
+    Component: any;
     permissions: string[];
     enabled: boolean;
     instance: any;

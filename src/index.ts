@@ -12,7 +12,7 @@ export interface Plugin {
 }
 
 export interface PluginInstance {
-  component: any
+  Component: any // Cambiado a mayúscula
   permissions: string[]
   enabled: boolean
   instance: any

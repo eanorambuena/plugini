@@ -1,5 +1,5 @@
 // Permisos específicos de esta aplicación
-import { Allow } from './plugini'
+import { Allow } from './src'
 
 // Registrar permisos básicos del sistema
 Allow.registerPermission({

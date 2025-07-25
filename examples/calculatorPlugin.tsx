@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { usePermissions, PermissionError } from '../plugini'
+import { usePermissions, PermissionError } from '../src'
 
 export const id = 'calculatorPlugin'
 export const permissions = ['GetRandomNumber', 'GetSystemInfo']

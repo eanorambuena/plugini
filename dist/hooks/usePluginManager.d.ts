@@ -1,7 +1,7 @@
 import { Microkernel, PluginInstance } from '../plugini';
 interface EnabledPlugin {
     name: string;
-    component: any;
+    Component: any;
     props?: any;
 }
 export declare const usePluginManager: (microkernel: Microkernel, allowInstance?: any) => {

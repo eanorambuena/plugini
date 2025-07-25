@@ -4,7 +4,7 @@ import { Microkernel, Allow, PluginInstance } from '../plugini'
 // Definir tipos específicos para el hook
 interface EnabledPlugin {
   name: string
-  component: any
+  Component: any // Cambiado a mayúscula
   props?: any
 }
 

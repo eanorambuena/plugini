@@ -1,9 +1,10 @@
 import React from 'react'
 import { microkernel } from './config/pluginConfig'
-import { usePluginManager } from './hooks/usePluginManager'
+import { usePluginManager } from './src'
 import { PermissionManager } from './components/PermissionManager'
 import { PluginList } from './components/PluginList'
 import { ActivePlugins } from './components/ActivePlugins'
+import { Allow } from './permissions'
 
 export const App = () => {
   const {
@@ -14,7 +15,7 @@ export const App = () => {
     handleDisablePlugin,
     togglePermission,
     getPluginPermissions
-  } = usePluginManager(microkernel)
+  } = usePluginManager(microkernel, Allow)
 
   return (
     <div style={{ padding: '20px' }}>
