@@ -1,16 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Microkernel = exports.Allow = exports.PermissionError = void 0;
-exports.usePermissions = usePermissions;
-class PermissionError extends Error {
+export class PermissionError extends Error {
     constructor(permission) {
         super(`Error: Permission '${permission}' is not allowed.`);
         this.name = 'PermissionError';
     }
 }
-exports.PermissionError = PermissionError;
 // Clase Allow - Sistema de registro de permisos (core)
-class Allow {
+export class Allow {
     // Método para registrar un permiso con argumentos nombrados
     static registerPermission({ name, func, description }) {
         this.permissions.set(name, {
@@ -37,10 +32,9 @@ class Allow {
         return this.permissions.has(permissionName);
     }
 }
-exports.Allow = Allow;
 // Registro de permisos con funciones y descripciones
 Allow.permissions = new Map();
-function usePermissions(props, permissions) {
+export function usePermissions(props, permissions) {
     const allow = {};
     const grantedPermissions = {
         ...props
@@ -58,7 +52,7 @@ function usePermissions(props, permissions) {
     return allow;
 }
 // Microkernel - Gestiona todos los plugins del sistema
-class Microkernel {
+export class Microkernel {
     constructor() {
         this.plugins = new Map();
         this.services = new Map();
@@ -135,4 +129,3 @@ class Microkernel {
         return this.plugins.get(name);
     }
 }
-exports.Microkernel = Microkernel;

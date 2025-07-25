@@ -20,7 +20,7 @@ export declare class Allow {
     static hasPermission(permissionName: string): boolean;
 }
 export declare function usePermissions(props: any, permissions: string[]): Record<string, () => any>;
-interface PluginInstance {
+export interface PluginInstance {
     component: any;
     permissions: string[];
     enabled: boolean;
@@ -46,4 +46,4 @@ export declare class Microkernel {
     isPluginEnabled(name: string): boolean;
     getPluginConfig(name: string): PluginInstance | undefined;
 }
-export {};
+//# sourceMappingURL=plugini.d.ts.map

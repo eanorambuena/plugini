@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.usePluginManager = void 0;
-const react_1 = require("react");
-const usePluginManager = (microkernel, allowInstance) => {
-    const [enabledPlugins, setEnabledPlugins] = (0, react_1.useState)([]);
-    const [activePermissions, setActivePermissions] = (0, react_1.useState)(new Set());
+import { useState, useEffect } from 'react';
+export const usePluginManager = (microkernel, allowInstance) => {
+    const [enabledPlugins, setEnabledPlugins] = useState([]);
+    const [activePermissions, setActivePermissions] = useState(new Set());
     // Inicializar todos los permisos como activos por defecto
-    (0, react_1.useEffect)(() => {
+    useEffect(() => {
         if (allowInstance) {
             const allPermissions = allowInstance.getAllPermissions().map((p) => p.name);
             setActivePermissions(new Set(allPermissions));
@@ -76,4 +73,3 @@ const usePluginManager = (microkernel, allowInstance) => {
         getPluginPermissions
     };
 };
-exports.usePluginManager = usePluginManager;

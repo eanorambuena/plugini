@@ -17,3 +17,4 @@ export interface Permission {
     description: string;
     func: any;
 }
+//# sourceMappingURL=index.d.ts.map
