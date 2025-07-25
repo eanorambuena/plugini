@@ -1,6 +1,6 @@
 {
   "name": "plugini",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Sistema de microkernel extensible para plugins con gestión de permisos integrada",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
